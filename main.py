@@ -52,21 +52,19 @@ def computeSynonym():
         results = soup.find(id="meanings")
         try:
             synonyms = results.find_all("a")
+            synonymString = x.capitalize() + ": "
+            counter = 0
+            for synonym in synonyms:
+                counter += 1
+                s = synonym.text
+                if counter == 1:
+                    synonymString += s.strip().capitalize()
+                else:
+                    synonymString += ", " + s.strip().capitalize()
+
+            outputString += synonymString + "\n" * 2
         except AttributeError:
-            outputMessage["text"] = "One of your words don't exist. Try again!"
-            break
-
-        synonymString = x.capitalize() + ": "
-        counter = 0
-        for synonym in synonyms:
-            counter += 1
-            s = synonym.text
-            if counter == 1:
-                synonymString += s.strip().capitalize()
-            else:
-                synonymString += ", " + s.strip().capitalize()
-
-        outputString += synonymString + "\n"*2
+            outputString = "One of your words don't exist. Try again!"
 
     outputMessage["text"] = outputString
 
